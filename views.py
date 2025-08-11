@@ -1,12 +1,12 @@
 from flask import flash, redirect, url_for, render_template
-<<<<<<< HEAD
 from app import app
 from models import Message
 from exts import db
 from forms import MessageForm
 
+
 @app.route('/', methods=["GET", "POST"])
-def index(): # 主页
+def index():  # 主页
     form = MessageForm()
     if form.validate_on_submit():
         name = form.name.data
