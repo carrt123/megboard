@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 import configs
-from models import Message
+
 
 app = Flask(__name__)
 app.config.from_object(configs)
@@ -13,5 +13,7 @@ app.jinja_env.lstrip_blocks = True
 db = SQLAlchemy(app)
 bootstrap = Bootstrap(app)
 moment = Moment(app)
-
-app.run()
+from models import Message
+import commands  # 新增这行
+if __name__ == '__main__':
+    app.run()
