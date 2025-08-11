@@ -20,6 +20,6 @@ def create_app():
 
 app = create_app()
 import commands, views, errors
-if __name__ == '__main__':
 
+if __name__ == '__main__':
     app.run(debug=True)

@@ -1,5 +1,5 @@
 from flask import flash, redirect, url_for, render_template
-from app import app
+from manage import app
 from models import Message
 from exts import db
 from forms import MessageForm
@@ -11,7 +11,7 @@ ALLOWED_ATTRIBUTES = {}
 
 @app.route('/', methods=["GET", "POST"])
 def index():  # 主页
-    form  = MessageForm()
+    form = MessageForm()
     if form.validate_on_submit():
         try:  # 捕获数据异常
             name = form.name.data.strip()

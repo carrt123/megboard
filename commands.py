@@ -1,6 +1,6 @@
 import click
 
-from app import app
+from manage import app
 from exts import db
 from models import Message
 
