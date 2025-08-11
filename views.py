@@ -25,10 +25,9 @@ def index():  # 主页
             db.session.rollback()
             flash(f'Failed to save message: {str(e)}', 'error')
         return redirect((url_for('view.index')))
-    # messages = Message.query.order_by(Message.timestamp.desc()).limit(100).all()
-    # return render_template("index.html", form=form, messages=messages)
-    messages = Message.query.order_by(Message.timestamp.desc()).all()
-    return render_template('index.html', form=form, messages=messages)
+    messages = Message.query.order_by(Message.timestamp.desc()).limit(100).all()
+    return render_template("index.html", form=form, messages=messages)
+
 
 @view.route('/test')
 def test():
