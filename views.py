@@ -1,15 +1,12 @@
-from flask import flash, redirect, url_for, render_template
-from manage import app
+from flask import flash,Blueprint ,redirect, url_for, render_template
 from models import Message
 from exts import db
 from forms import MessageForm
-import bleach
 
-ALLOWED_TAGS = ['b', 'i', 'em', 'strong', 'p']
-ALLOWED_ATTRIBUTES = {}
+view = Blueprint('view', __name__, url_prefix='/')
 
 
-@app.route('/', methods=["GET", "POST"])
+@view.route('/index')
 def index():  # 主页
     form = MessageForm()
     if form.validate_on_submit():
@@ -18,7 +15,7 @@ def index():  # 主页
             body = form.body.data.strip()
             if not name or not body:
                 flash('Name and message cannot be empty!', 'error')
-                return redirect(url_for('index'))
+                return redirect(url_for('view.index'))
 
             message = Message(body=body, name=name)
             db.session.add(message)
@@ -27,6 +24,12 @@ def index():  # 主页
         except Exception as e:
             db.session.rollback()
             flash(f'Failed to save message: {str(e)}', 'error')
-        return redirect((url_for('index')))
-    messages = Message.query.order_by(Message.timestamp.desc()).limit(100).all()
-    return render_template('index.html', form=form, message=messages)
+        return redirect((url_for('view.index')))
+    # messages = Message.query.order_by(Message.timestamp.desc()).limit(100).all()
+    # return render_template("index.html", form=form, messages=messages)
+    messages = Message.query.order_by(Message.timestamp.desc()).all()
+    return render_template('index.html', form=form, messages=messages)
+
+@view.route('/test')
+def test():
+    return "Hello"
