@@ -1,14 +1,17 @@
 from flask import Flask
-from exts import db, bootstrap, moment
+from flask_sqlalchemy import SQLAlchemy
+from flask_bootstrap import Bootstrap
+from flask_moment import Moment
 import configs
+from models import Message
 
 app = Flask(__name__)
 app.config.from_object(configs)
 app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
 
-db.init_app(app)
-bootstrap.init_app(app)
-moment.init_app(app)
+db = SQLAlchemy(app)
+bootstrap = Bootstrap(app)
+moment = Moment(app)
 
 app.run()
